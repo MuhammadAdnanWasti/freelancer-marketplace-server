@@ -30,6 +30,7 @@ async function run() {
 
 
     const taskCollection=client.db('taskDB').collection('task')
+    const userCollection=client.db('taskDB').collection('users')
 
     app.get('/addtask', async(req,res)=>{
     const result=await taskCollection.find().toArray()
@@ -47,6 +48,24 @@ async function run() {
     const newTask=req.body;
     const result=await taskCollection.insertOne(newTask)
     res.send(result)
+})
+
+
+
+
+// users
+
+app.get('/users', async(req,res)=>{
+    const result=await userCollection.find().toArray()
+    
+    res.send(result)
+})
+
+app.post('/users', async(req,res)=>{
+  const userProfile= req.body;
+  const result=await userCollection.insertOne(userProfile);
+ 
+  res.send(result)
 })
 
     // Send a ping to confirm a successful connection
