@@ -36,6 +36,11 @@ async function run() {
     const result=await taskCollection.find().toArray()
     res.send(result)
 })
+    app.get('/showtask', async(req,res)=>{
+    const result=await taskCollection.find() .sort({ deadline: 1 }).limit(6).toArray()
+    res.send(result)
+})
+  
     app.get('/addtask/:id', async(req,res)=>{
       const id=req.params.id;
       const query={_id: new ObjectId(id)}
